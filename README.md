@@ -10,8 +10,8 @@
     textField.layer.borderWidth = 1;
     
     WTCarKeyboard* carKeyboard = [WTCarKeyboard new];
-    carKeyboard.delegate = self; //代理
-    carKeyboard.inputBlock = ^(NSString* textStr) //block
+    carKeyboard.delegate = self;
+    carKeyboard.inputBlock = ^(NSString* textStr)
     {
          NSLog(@"%@",textStr);
     };
