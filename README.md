@@ -16,3 +16,7 @@
         NSLog(@"%@",textStr);
     };
     textField.inputView = carKeyboard;
+
+2017-02-23
+·优化了删除按钮显示问题；
+·优化了打开键盘的界面卡顿问题；
