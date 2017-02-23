@@ -9,7 +9,7 @@
 
 @interface WTCarKeyboard ()<WTCarKeyboardModelDelegate>
 
-@property (nonatomic,weak)UITextField* textField; //父输入框设置
+@property (nonatomic,weak)UITextField* textField; //父输入框
 
 @property (nonatomic,strong)NSArray* carTypeArr; //省简称数据
 @property (nonatomic,strong)NSArray* numTypeArr; //字母和数字界面数据
@@ -29,9 +29,6 @@
     self = [super init];
     if (self)
     {
-        /* 设置背景 */
-        self.backgroundColor = [UIColor whiteColor];
-        
         /* 设置默认数据 */
         _carTypeArr = @[@"京",@"沪",@"津",@"渝",@"冀",@"晋",@"蒙",@"辽",@"吉",@"黑",@"苏",@"浙",@"皖",@"闽",@"赣",@"鲁",@"豫",@"鄂",@"湘",@"粤",@"桂",@"琼",@"川",@"贵",@"云",@"藏",@"陕",@"甘",@"青",@"宁",@"新",@"台",@"澳",@"港"];
         _numTypeArr = @[@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"0",@"Q",@"W",@"E",@"R",@"T",@"Y",@"U",@"I",@"O",@"P",@"A",@"S",@"D",@"F",@"G",@"H",@"J",@"K",@"L",@"Z",@"X",@"C",@"V",@"B",@"N",@"M"];
@@ -53,6 +50,8 @@
     if (theTextField.inputView == self)
     {
         self.textField = theTextField;
+        //判断两种类型键盘hiden
+        [self setKeyboardHidden];
     }
 }
 
@@ -88,8 +87,6 @@
         UIButton* btn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_carInputView addSubview:btn];
         btn.backgroundColor = [UIColor whiteColor];
-        btn.layer.cornerRadius = 3;
-        btn.layer.masksToBounds = YES;
         [btn setTitle:_carTypeArr[i] forState:UIControlStateNormal];
         [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         btn.titleLabel.font = [UIFont systemFontOfSize:15];
@@ -126,8 +123,6 @@
         UIButton* btn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_numInputView addSubview:btn];
         btn.backgroundColor = [UIColor whiteColor];
-        btn.layer.cornerRadius = 3;
-        btn.layer.masksToBounds = YES;
         [btn setTitle:_numTypeArr[i] forState:UIControlStateNormal];
         [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         btn.titleLabel.font = [UIFont systemFontOfSize:15];
@@ -167,8 +162,6 @@
     changeBtn.titleLabel.font = [UIFont systemFontOfSize:15];
     changeBtn.frame = CGRectMake(_model.btnWidthSpace, (_model.btnHeightSpace+_model.btnHeight)*3+_model.btnHeightSpace, _model.btnWidth+_model.btnWidthSpace, _model.btnHeight);
     changeBtn.backgroundColor = [UIColor whiteColor];
-    changeBtn.layer.cornerRadius = 3;
-    changeBtn.layer.masksToBounds = YES;
     changeBtn.tag = tag;
     
     //删除按钮
@@ -177,10 +170,11 @@
     [deleteBtn addTarget:self action:@selector(deleteClick:) forControlEvents:UIControlEventTouchUpInside];
     deleteBtn.frame = CGRectMake((_model.btnWidthSpace+_model.btnWidth)*9, (_model.btnHeightSpace+_model.btnHeight)*3+_model.btnHeightSpace, _model.btnWidth+_model.btnWidthSpace, _model.btnHeight);
     deleteBtn.backgroundColor = [UIColor whiteColor];
-    deleteBtn.layer.cornerRadius = 3;
-    deleteBtn.layer.masksToBounds = YES;
     [deleteBtn setImage:[UIImage imageNamed:@"WTCarKeyboardBack"] forState:UIControlStateNormal];
-    deleteBtn.imageEdgeInsets = UIEdgeInsetsMake(45*(1-18.0/34.0)/2.0, 5, 45*(1-18.0/34.0)/2.0, 5); //删除按钮大小45*34
+    
+    CGFloat deleteBtnWidth = 18;
+    CGFloat deleteBtnHeight = 34*18/45.0;
+    deleteBtn.imageEdgeInsets = UIEdgeInsetsMake((_model.btnHeight-deleteBtnHeight)/2.0, (_model.btnWidth+_model.btnWidthSpace-deleteBtnWidth)/2.0, (_model.btnHeight-deleteBtnHeight)/2.0, (_model.btnWidth+_model.btnWidthSpace-deleteBtnWidth)/2.0); //删除按钮大小45*34
     deleteBtn.tag = tag+1;
 }
 /** 判断两种类型键盘hiden */
@@ -264,24 +258,10 @@
     UIButton* num_changeBtn = [_numInputView viewWithTag:98];
     num_changeBtn.frame = CGRectMake(_model.btnWidthSpace, (_model.btnHeightSpace+_model.btnHeight)*3+_model.btnHeightSpace, _model.btnWidth+_model.btnWidthSpace, _model.btnHeight);
     
-    if (isLandscape)
-    {
-        num_deleteBtn.imageEdgeInsets = UIEdgeInsetsMake(45*(1-18.0/34.0)/2.0, 10, 45*(1-18.0/34.0)/2.0, 10); //删除按钮大小45*34
-        car_deleteBtn.imageEdgeInsets = UIEdgeInsetsMake(45*(1-18.0/34.0)/2.0, 10, 45*(1-18.0/34.0)/2.0, 10); //删除按钮大小45*34
-    }
-    else
-    {
-        num_deleteBtn.imageEdgeInsets = UIEdgeInsetsMake(45*(1-18.0/34.0)/2.0, 5, 45*(1-18.0/34.0)/2.0, 5); //删除按钮大小45*34
-        car_deleteBtn.imageEdgeInsets = UIEdgeInsetsMake(45*(1-18.0/34.0)/2.0, 5, 45*(1-18.0/34.0)/2.0, 5); //删除按钮大小45*34
-    }
-}
-
-#pragma mark - set
-- (void)setTextField:(UITextField *)textField;
-{
-    _textField = textField;
-    //判断两种类型键盘hiden
-    [self setKeyboardHidden];
+    CGFloat deleteBtnWidth = 18;
+    CGFloat deleteBtnHeight = 34*18/45.0;
+    num_deleteBtn.imageEdgeInsets = UIEdgeInsetsMake((_model.btnHeight-deleteBtnHeight)/2.0, (_model.btnWidth+_model.btnWidthSpace-deleteBtnWidth)/2.0, (_model.btnHeight-deleteBtnHeight)/2.0, (_model.btnWidth+_model.btnWidthSpace-deleteBtnWidth)/2.0);
+    car_deleteBtn.imageEdgeInsets = UIEdgeInsetsMake((_model.btnHeight-deleteBtnHeight)/2.0, (_model.btnWidth+_model.btnWidthSpace-deleteBtnWidth)/2.0, (_model.btnHeight-deleteBtnHeight)/2.0, (_model.btnWidth+_model.btnWidthSpace-deleteBtnWidth)/2.0);
 }
 
 #pragma mark - 点击事件
