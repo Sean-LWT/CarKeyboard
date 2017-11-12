@@ -52,6 +52,7 @@
         self.textField = theTextField;
         //判断两种类型键盘hiden
         [self setKeyboardHidden];
+        self.bounds = _model.superViewFrame;
     }
 }
 
@@ -59,7 +60,7 @@
 /** 创建界面 */
 - (void)setInputView;
 {
-    self.bounds = _model.viewFrame;
+    self.bounds = _model.superViewFrame;
     
     //创建输入子界面
     _carInputView = [UIView new];
@@ -204,7 +205,7 @@
 #pragma mark - 代理
 - (void)orientationDidChangeWithCarKeyboardModel:(WTCarKeyboardModel *)carKeyboardModel landscape:(BOOL)isLandscape;
 {
-    self.bounds = _model.viewFrame;
+    self.bounds = _model.superViewFrame;
     _carInputView.frame = _model.viewFrame;
     _numInputView.frame = _model.viewFrame;
     for (int i = 0; i<_carTypeArr.count; i++)

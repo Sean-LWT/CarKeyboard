@@ -17,20 +17,20 @@
 
 @end
 
-#define screenWidth [UIScreen mainScreen].bounds.size.width
-#define screenHeight [UIScreen mainScreen].bounds.size.height
+#define kCarKeyBoardScreenWidth [UIScreen mainScreen].bounds.size.width
+#define kCarKeyBoardScreenHeight [UIScreen mainScreen].bounds.size.height
 
 @interface WTCarKeyboardModel : NSObject
 
 @property (nonatomic,weak)id <WTCarKeyboardModelDelegate>delegate;
 
-@property (nonatomic,assign)UIDeviceOrientation type; //屏幕方向
+@property (nonatomic,assign,readonly)UIDeviceOrientation type; //屏幕方向
 
 @property (nonatomic,assign)CGFloat btnHeight; //按钮高度
 @property (nonatomic,assign)CGFloat btnWidth; //按钮宽度
 @property (nonatomic,assign)CGFloat btnHeightSpace; //按钮上下间隔
 @property (nonatomic,assign)CGFloat btnWidthSpace; //按钮左右间隔
-
-@property (nonatomic,assign)CGRect viewFrame; //背景界面frame
+@property (nonatomic,assign,readonly)CGRect viewFrame; //背景界面frame
+@property (nonatomic,assign,readonly)CGRect superViewFrame;
 
 @end

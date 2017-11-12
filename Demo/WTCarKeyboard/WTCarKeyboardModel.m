@@ -20,23 +20,7 @@
     if (self)
     {
         _type = [[UIDevice currentDevice] orientation];
-        //默认设置
-        if (_type == UIDeviceOrientationLandscapeLeft || _type == UIDeviceOrientationLandscapeRight)
-        {
-            
-            [self setDataForLandscape:YES];
-            _type = [[UIDevice currentDevice] orientation];
-        }
-        else if(_type == UIDeviceOrientationPortrait || _type == UIDeviceOrientationPortraitUpsideDown)
-        {
-            [self setDataForLandscape:NO];
-            _type = [[UIDevice currentDevice] orientation];
-        }
-        else
-        {
-            [self setDataForLandscape:NO];
-            _type = UIDeviceOrientationPortrait;
-        }
+        [self shareData];
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged) name:UIDeviceOrientationDidChangeNotification object:nil];
     }
@@ -46,34 +30,26 @@
 /** 处理函数 */
 -(void)orientationChanged;
 {
-    switch ([[UIDevice currentDevice] orientation])
+    _type = [[UIDevice currentDevice] orientation];
+    [self shareData];
+    switch (_type)
     {
-        case UIDeviceOrientationPortrait:case UIDeviceOrientationPortraitUpsideDown:
-        {
-            if (_type == UIDeviceOrientationLandscapeLeft || _type == UIDeviceOrientationLandscapeRight || (_type == UIDeviceOrientationPortraitUpsideDown && [[UIDevice currentDevice] orientation] == UIDeviceOrientationPortrait))
-            {
-                //设置
-                [self setDataForLandscape:NO];
-                if ([_delegate respondsToSelector:@selector(orientationDidChangeWithCarKeyboardModel:landscape:)])
-                {
-                    [_delegate orientationDidChangeWithCarKeyboardModel:self landscape:NO];
-                }
-            }
-            _type = [[UIDevice currentDevice] orientation];
-        }
-            break;
         case UIDeviceOrientationLandscapeLeft:case UIDeviceOrientationLandscapeRight:
         {
-            if (_type != UIDeviceOrientationLandscapeLeft && _type != UIDeviceOrientationLandscapeRight)
+            //设置
+            if ([_delegate respondsToSelector:@selector(orientationDidChangeWithCarKeyboardModel:landscape:)])
             {
-                //设置
-                [self setDataForLandscape:YES];
-                if ([_delegate respondsToSelector:@selector(orientationDidChangeWithCarKeyboardModel:landscape:)])
-                {
-                    [_delegate orientationDidChangeWithCarKeyboardModel:self landscape:YES];
-                }
+                [_delegate orientationDidChangeWithCarKeyboardModel:self landscape:YES];
             }
-            _type = [[UIDevice currentDevice] orientation];
+        }
+            break;
+        case UIDeviceOrientationPortrait:
+        {
+            //设置
+            if ([_delegate respondsToSelector:@selector(orientationDidChangeWithCarKeyboardModel:landscape:)])
+            {
+                [_delegate orientationDidChangeWithCarKeyboardModel:self landscape:NO];
+            }
         }
             break;
         default:
@@ -85,28 +61,53 @@
 }
 
 /** 设置数据 */
-- (void)setDataForLandscape:(BOOL)isLandscape;
+- (void)shareData;
 {
-    //设置
-    if (isLandscape)
+    _btnWidth = (kCarKeyBoardScreenWidth-5*11.0)/10.0;
+    if (@available(iOS 11.0,*))
     {
-        _btnWidth = 38.0f;
-    }
-    else
-    {
-        if([[UIDevice currentDevice] orientation] == UIDeviceOrientationPortraitUpsideDown)
-        {
-            _btnWidth = 38.0f;
-        }
-        else
-        {
-            _btnWidth = 28.0f;
-        }
+        UIEdgeInsets edge = [UIApplication sharedApplication].delegate.window.rootViewController.view.safeAreaInsets;
+        _btnWidth = (kCarKeyBoardScreenWidth-edge.left-edge.right-5*11.0)/10.0;
     }
     _btnHeight = 45.0f;
     _btnHeightSpace = (216-_btnHeight*4)/5.0;
-    _btnWidthSpace = (screenWidth-10*_btnWidth)/11.0;
-    _viewFrame = CGRectMake(0, 0, screenWidth, 216);
+    _btnWidthSpace = 5;
+}
+- (CGRect)viewFrame;
+{
+    UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
+    CGRect theViewFrame = CGRectZero;
+    if (@available(iOS 11.0,*))
+    {
+        UIEdgeInsets edge = [UIApplication sharedApplication].delegate.window.rootViewController.view.safeAreaInsets;
+        if (orientation == UIDeviceOrientationLandscapeLeft || orientation == UIDeviceOrientationLandscapeRight)
+        {
+            theViewFrame = CGRectMake(edge.left, 0, kCarKeyBoardScreenWidth-edge.left-edge.right, 216+edge.bottom);
+        }
+        else
+        {
+            theViewFrame = CGRectMake(0, 0, kCarKeyBoardScreenWidth, 216+edge.bottom);
+        }
+    }
+    else
+    {
+        theViewFrame = CGRectMake(0, 0, kCarKeyBoardScreenWidth, 216);
+    }
+    return theViewFrame;
+}
+- (CGRect)superViewFrame;
+{
+    CGRect theViewFrame = CGRectZero;
+    if (@available(iOS 11.0,*))
+    {
+        UIEdgeInsets edge = [UIApplication sharedApplication].delegate.window.rootViewController.view.safeAreaInsets;
+        theViewFrame = CGRectMake(0, 0, kCarKeyBoardScreenWidth, 216+edge.bottom);
+    }
+    else
+    {
+        theViewFrame = CGRectMake(0, 0, kCarKeyBoardScreenWidth, 216);
+    }
+    return theViewFrame;
 }
 
 - (void)dealloc;
