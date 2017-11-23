@@ -66,7 +66,7 @@
     _btnWidth = (kCarKeyBoardScreenWidth-5*11.0)/10.0;
     if (@available(iOS 11.0,*))
     {
-        UIEdgeInsets edge = [UIApplication sharedApplication].delegate.window.rootViewController.view.safeAreaInsets;
+        UIEdgeInsets edge = [UIApplication sharedApplication].delegate.window.safeAreaInsets;
         _btnWidth = (kCarKeyBoardScreenWidth-edge.left-edge.right-5*11.0)/10.0;
     }
     _btnHeight = 45.0f;
@@ -79,7 +79,7 @@
     CGRect theViewFrame = CGRectZero;
     if (@available(iOS 11.0,*))
     {
-        UIEdgeInsets edge = [UIApplication sharedApplication].delegate.window.rootViewController.view.safeAreaInsets;
+        UIEdgeInsets edge = [UIApplication sharedApplication].delegate.window.safeAreaInsets;
         if (orientation == UIDeviceOrientationLandscapeLeft || orientation == UIDeviceOrientationLandscapeRight)
         {
             theViewFrame = CGRectMake(edge.left, 0, kCarKeyBoardScreenWidth-edge.left-edge.right, 216+edge.bottom);
@@ -100,7 +100,7 @@
     CGRect theViewFrame = CGRectZero;
     if (@available(iOS 11.0,*))
     {
-        UIEdgeInsets edge = [UIApplication sharedApplication].delegate.window.rootViewController.view.safeAreaInsets;
+        UIEdgeInsets edge = [UIApplication sharedApplication].delegate.window.safeAreaInsets;
         theViewFrame = CGRectMake(0, 0, kCarKeyBoardScreenWidth, 216+edge.bottom);
     }
     else
