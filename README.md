@@ -14,9 +14,7 @@ https://github.com/Sean-LWT/WTCarKeyboard
     textField.layer.borderWidth = 1;
     
     WTCarKeyboard* carKeyboard = [WTCarKeyboard new];
-    carKeyboard.delegate = self;
-    carKeyboard.inputBlock = ^(NSString* textStr)
-    {
+    carKeyboard.inputBlock = ^(NSString* textStr) {
         NSLog(@"%@",textStr);
     };
     textField.inputView = carKeyboard;
