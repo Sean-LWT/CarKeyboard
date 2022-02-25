@@ -3,8 +3,8 @@
 
 <img src="https://github.com/Sean-LWT/CarKeyboard/blob/master/V1.png" width="100px">
 <img src="https://github.com/Sean-LWT/CarKeyboard/blob/master/V2.png" width="100px">
-<img src="https://github.com/Sean-LWT/CarKeyboard/blob/master/H1.png" width="150px">
-<img src="https://github.com/Sean-LWT/CarKeyboard/blob/master/H2.png" width="150px">
+<img src="https://github.com/Sean-LWT/CarKeyboard/blob/master/H1.png" width="300px">
+<img src="https://github.com/Sean-LWT/CarKeyboard/blob/master/H2.png" width="300px">
 
 ## 使用
 
