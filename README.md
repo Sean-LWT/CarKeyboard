@@ -1,24 +1,33 @@
-# WTCarKeyboard
-车牌号自定义键盘输入
+# CarKeyboard
+## _中国车牌号输入框_
 
-https://github.com/Sean-LWT/WTCarKeyboard
+![效果描述1](https://github.com/Sean-LWT/CarKeyboard/blob/master/V1.png)
+![效果描述2](https://github.com/Sean-LWT/CarKeyboard/blob/master/V2.png)
+![效果描述3](https://github.com/Sean-LWT/CarKeyboard/blob/master/H1.png)
+![效果描述4](https://github.com/Sean-LWT/CarKeyboard/blob/master/H2.png)
 
-![效果描述](https://github.com/Sean-LWT/WTCarKeyboard/blob/master/screenshot.gif)
+## 使用
 
-使用方法
+创建时传入父UITextField
+```oc
++ (instancetype)shareWithTextInput:(UITextField* )inputView;
+```
+例如
+```oc
+_textField = [UITextField new];
+[self.view addSubview:_textField];
+_textField.inputView = [WTCarKeyboard shareWithTextInput:_textField];
+```
 
-    UITextField* textField = [UITextField new];
-    [self.view addSubview:textField];
-    textField.frame = CGRectMake(100, 100, 100, 40);
-    textField.layer.borderColor = [UIColor blackColor].CGColor;
-    textField.layer.borderWidth = 1;
-    
-    WTCarKeyboard* carKeyboard = [WTCarKeyboard new];
-    carKeyboard.inputBlock = ^(NSString* textStr) {
-        NSLog(@"%@",textStr);
-    };
-    textField.inputView = carKeyboard;
+## 更新
 
 2017-02-23
-·优化了删除按钮显示问题；
-·优化了打开键盘的界面卡顿问题；
+· 优化了删除按钮显示问题；
+· 优化了打开键盘的界面卡顿问题；
+
+2022-02-25
+· 优化代码、简化使用方法；
+
+## License
+
+MIT
