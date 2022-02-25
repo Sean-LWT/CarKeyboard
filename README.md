@@ -1,10 +1,8 @@
 # CarKeyboard
 ## _中国车牌号输入框_
 
-<img src="https://github.com/Sean-LWT/CarKeyboard/blob/master/V1.png" width="100px">
-<img src="https://github.com/Sean-LWT/CarKeyboard/blob/master/V2.png" width="100px">
-<img src="https://github.com/Sean-LWT/CarKeyboard/blob/master/H1.png" width="200px">
-<img src="https://github.com/Sean-LWT/CarKeyboard/blob/master/H2.png" width="200px">
+<img src="https://github.com/Sean-LWT/CarKeyboard/blob/master/V1.png" width="100px"> <img src="https://github.com/Sean-LWT/CarKeyboard/blob/master/V2.png" width="100px">
+<img src="https://github.com/Sean-LWT/CarKeyboard/blob/master/H1.png" width="200px"> <img src="https://github.com/Sean-LWT/CarKeyboard/blob/master/H2.png" width="200px">
 
 ## 使用
 
