@@ -1,5 +1,5 @@
 # CarKeyboard
-## _中国车牌号输入框_
+## _车牌号自定义键盘输入_
 
 竖屏  
 <img src="https://github.com/Sean-LWT/CarKeyboard/blob/master/V1.png" width="100px"> <img src="https://github.com/Sean-LWT/CarKeyboard/blob/master/V2.png" width="100px">  
