@@ -1,6 +1,0 @@
-docs/* linguist-documentation
-etc/* linguist-vendored
-
-*.h linguist-language=objective-c
-*.m linguist-language=objective-c
-*.md linguist-language=objective-c
